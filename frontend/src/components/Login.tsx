@@ -1,57 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import logoCMS from "../assets/images/logoCMS.jpg";
 import login1 from "../assets/images/login1.jpg";
-import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login, error: authError, loading: authLoading, isAuthenticated, clearError } = useAuth();
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [recaptchaToken, setRecaptchaToken] = useState("");
 
-  // Redirect jika sudah login
+  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/home", { replace: true });
+      const from = (location.state as any)?.from?.pathname || "/home";
+      navigate(from, { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, location]);
 
-  // Sinkronisasi error dari context
+  // Update local error state when auth context error changes
   useEffect(() => {
-    if (authError && error !== authError) {
+    if (authError) {
       setError(authError);
     }
-  }, [authError, error]);
+  }, [authError]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (error) clearError(); // Hanya bersihkan error jika ada sebelumnya
-    setError(""); // Reset error lokal
-
-    if (!recaptchaToken) {
-      setError("Please verify that you are not a robot.");
-      return;
-    }
-
+    setError(""); // Reset error
+    clearError(); // Clear any previous auth errors
+    
     try {
-      // Integrasikan recaptchaToken pada login
-      await login(email, password, recaptchaToken); // Now supports 3 arguments
-      // Redirect akan dilakukan oleh useEffect di atas
-    } catch (err) {
-      console.error("Login attempt failed", err);
+      await login(email, password);
+      // The redirect is handled by the useEffect above that watches isAuthenticated
+    } catch (err: any) {
+      // Error handling is done in the AuthContext
+      console.error("Login attempt failed");
     }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#f0f8ff]">
       <div className="flex w-full max-w-4xl bg-white shadow-lg rounded-lg">
-        
         {/* Left Side Image */}
         <div className="hidden md:flex w-1/2 bg-[#fffbfb] justify-center items-center p-3 pt-24">
           <img src={login1} alt="Illustration" className="w-4/5 h-auto" />
@@ -97,14 +90,6 @@ const Login = () => {
                 placeholder="Your Password"
                 className="w-full p-3 border border-[#b0c4de] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007bff]"
                 required
-              />
-            </div>
-
-            {/* ReCAPTCHA */}
-            <div className="mb-4">
-              <ReCAPTCHA
-                sitekey="6LdS5PkqAAAAAHZZeU73vxO99m-sKKQYDfZjSVGN" // Ganti dengan site key Anda
-                onChange={(token) => setRecaptchaToken(token || "")}
               />
             </div>
             

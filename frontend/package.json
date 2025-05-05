@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "proxy": "https://backend-donatebank.vercel.app"
+    "preview": "vite preview"
   },
   "dependencies": {
     "axios": "^1.8.1",
@@ -18,12 +17,8 @@
     "pg": "^8.13.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-google-recaptcha": "^3.1.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.2.0",
-    "react-slick": "^0.30.3",
-    "recharts": "^2.15.1",
-    "slick-carousel": "^1.8.1",
     "tailwindcss": "^4.0.9",
     "vite-plugin-windicss": "^1.9.4"
   },
@@ -31,8 +26,6 @@
     "@eslint/js": "^9.21.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "@types/react-google-recaptcha": "^2.1.9",
-    "@types/react-slick": "^0.23.13",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",

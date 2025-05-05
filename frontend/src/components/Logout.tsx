@@ -19,9 +19,9 @@ const Logout = () => {
 
   // Confirm logout
   const handleConfirmLogout = () => {
-    logout(); // Call logout to clear token and update authentication state
-    navigate("/login"); // Redirect to login page
-    setIsModalOpen(false); // Close the modal
+    logout();
+    navigate("/login");
+    setIsModalOpen(false);
   };
 
   return (

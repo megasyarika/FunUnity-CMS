@@ -12,10 +12,8 @@ import {
 // Components
 import Home from './components/Home';
 import AboutUs from './components/AboutUs';
-import ErrorBoundary from './utils/ErrorBoundary';
 import Programs from './components/Programs';
 import Transaksi from './components/Transaksi';
-import Partners from './components/Partners';
 import Settings from './components/Settings';
 import Sidebar from './layout/Sidebar';
 import Login from './components/Login';
@@ -24,7 +22,6 @@ import Logout from './components/Logout';
 // Context
 import { AuthProvider } from './contexts/AuthContext';
 import axios from "axios";
-import ImageSlider from './components/ImageSlider';
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
@@ -96,35 +93,16 @@ const AppContent = () => {
               <Home />
             </PrivateRoute>
           } />
-          
           <Route path="/aboutus" element={
             <PrivateRoute>
-              <ErrorBoundary>
               <AboutUs />
-              </ErrorBoundary>
             </PrivateRoute>
           } />
-           
-          <Route path="/imageslider" element={
-            <PrivateRoute>
-              <ImageSlider />
-            </PrivateRoute>
-          } />
-          
           <Route path="/programs" element={
             <PrivateRoute>
-             <ErrorBoundary>
               <Programs />
-              </ErrorBoundary>
             </PrivateRoute>
           } />
-
-        <Route path="/partners" element={
-            <PrivateRoute>
-              <Partners />
-            </PrivateRoute>
-          } />
-
           <Route path="/transaksi" element={
             <PrivateRoute>
               <Transaksi />

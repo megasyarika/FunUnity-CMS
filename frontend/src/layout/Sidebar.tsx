@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaHome, FaInfoCircle, FaList, FaCreditCard, FaCog, FaSignOutAlt, FaBars, FaImages, FaHandshake } from "react-icons/fa";
+import { FaHome, FaInfoCircle, FaList, FaCreditCard, FaCog, FaSignOutAlt, FaBars } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import logoCMS from "../assets/images/logoCMS.jpg";
 
@@ -43,142 +43,121 @@ const Sidebar = ({
   return (
     <>
       <div
-        className={`flex flex-col bg-gradient-to-b from-blue-400 to-blue-900 text-white h-full shadow-lg fixed top-0 left-0 bottom-0 transition-all duration-300 z-20`}
+        className={`flex flex-col bg-white text-gray-800 h-full shadow-md fixed top-0 left-0 bottom-0 p-4 transition-all duration-300 ${
+          isSidebarOpen ? "w-64" : "w-20"
+        }`}
         style={{
           width: isSidebarOpen ? "250px" : "80px",
-          transition: "width 0.3s ease-in-out",
+          transition: "width 0.3s ease-in-out", // smooth transition for width change
         }}
       >
         {/* Container for logo and toggle button */}
-        <div className="flex justify-between items-center p-4">
+        <div className="flex justify-between items-center mb-4">
           {/* Logo */}
           {isSidebarOpen && (
-            <div className="flex justify-center">
-              <img src={logoCMS} alt="Logo" className="pr-1 w-35 h-auto rounded-md" />
+            <div className="flex justify-center mb-4">
+              <img src={logoCMS} alt="Logo" className="w-30 h-auto" />
             </div>
           )}
 
-          {/* Toggle Button (Hamburger) */}
+          {/* Toggle Button (Hamburger) on the right */}
           <button
             onClick={onToggleSidebar}
-            className="text-white hover:text-blue-300 transition-colors duration-200"
+            className="text-gray-600 hover:text-gray-800 ml-4 mb-3"
           >
             <FaBars size={24} />
           </button>
         </div>
 
-        {/* Divider */}
-        <div className="border-b border-blue-800 opacity-30 my-2"></div>
+        {/* Sidebar Links */}
+        <Link
+          to="/home"
+          className={`flex items-center py-3 px-4 mb-4 rounded-lg transition-colors duration-300 hover:bg-blue-100 ${
+            hoveredLink === "home" ? "bg-blue-100" : ""
+          }`}
+          onMouseEnter={() => setHoveredLink("home")}
+          onMouseLeave={() => setHoveredLink(null)}
+        >
+          {isSidebarOpen ? (
+            <FaHome className="mr-3 text-blue-600" />
+          ) : (
+            <FaHome className="mr-3 text-blue-600" />
+          )}
+          {isSidebarOpen && <span>Home</span>}
+        </Link>
 
-        {/* Navigation Links */}
-        <div className="flex flex-col mt-4 px-2">
-          <Link
-            to="/home"
-            className={`flex items-center py-3 px-4 mb-2 rounded-lg transition-all duration-200 ${
-              hoveredLink === "home" 
-                ? "bg-blue-600 text-white shadow-md" 
-                : "text-blue-100 hover:bg-blue-800"
-            }`}
-            onMouseEnter={() => setHoveredLink("home")}
-            onMouseLeave={() => setHoveredLink(null)}
-          >
-            <FaHome className={`${isSidebarOpen ? "mr-3" : "mx-auto"} text-xl`} />
-            {isSidebarOpen && <span className="font-medium">Home</span>}
-          </Link>
+        <Link
+          to="/aboutus"
+          className={`flex items-center py-3 px-4 mb-4 rounded-lg transition-colors duration-300 hover:bg-blue-100 ${
+            hoveredLink === "aboutus" ? "bg-blue-100" : ""
+          }`}
+          onMouseEnter={() => setHoveredLink("aboutus")}
+          onMouseLeave={() => setHoveredLink(null)}
+        >
+          {isSidebarOpen ? (
+            <FaInfoCircle className="mr-3 text-blue-600" />
+          ) : (
+            <FaInfoCircle className="mr-3 text-blue-600" />
+          )}
+          {isSidebarOpen && <span>About Us</span>}
+        </Link>
 
-          <Link
-            to="/aboutus"
-            className={`flex items-center py-3 px-4 mb-2 rounded-lg transition-all duration-200 ${
-              hoveredLink === "aboutus" 
-                ? "bg-blue-600 text-white shadow-md" 
-                : "text-blue-100 hover:bg-blue-800"
-            }`}
-            onMouseEnter={() => setHoveredLink("aboutus")}
-            onMouseLeave={() => setHoveredLink(null)}
-          >
-            <FaInfoCircle className={`${isSidebarOpen ? "mr-3" : "mx-auto"} text-xl`} />
-            {isSidebarOpen && <span className="font-medium">About Us</span>}
-          </Link>
+        <Link
+          to="/programs"
+          className={`flex items-center py-3 px-4 mb-4 rounded-lg transition-colors duration-300 hover:bg-blue-100 ${
+            hoveredLink === "programs" ? "bg-blue-100" : ""
+          }`}
+          onMouseEnter={() => setHoveredLink("programs")}
+          onMouseLeave={() => setHoveredLink(null)}
+        >
+          {isSidebarOpen ? (
+            <FaList className="mr-3 text-blue-600" />
+          ) : (
+            <FaList className="mr-3 text-blue-600" />
+          )}
+          {isSidebarOpen && <span>Programs</span>}
+        </Link>
 
-          <Link
-            to="/imageslider"
-            className={`flex items-center py-3 px-4 mb-2 rounded-lg transition-all duration-200 ${
-              hoveredLink === "imageslider" 
-                ? "bg-blue-600 text-white shadow-md" 
-                : "text-blue-100 hover:bg-blue-800"
-            }`}
-            onMouseEnter={() => setHoveredLink("imageslider")}
-            onMouseLeave={() => setHoveredLink(null)}
-          >
-            <FaImages className={`${isSidebarOpen ? "mr-3" : "mx-auto"} text-xl`} />
-            {isSidebarOpen && <span className="font-medium">Image Slider</span>}
-          </Link>
+        <Link
+          to="/transaksi"
+          className={`flex items-center py-3 px-4 mb-4 rounded-lg transition-colors duration-300 hover:bg-blue-100 ${
+            hoveredLink === "transactions" ? "bg-blue-100" : ""
+          }`}
+          onMouseEnter={() => setHoveredLink("transactions")}
+          onMouseLeave={() => setHoveredLink(null)}
+        >
+          {isSidebarOpen ? (
+            <FaCreditCard className="mr-3 text-blue-600" />
+          ) : (
+            <FaCreditCard className="mr-3 text-blue-600" />
+          )}
+          {isSidebarOpen && <span>Transactions</span>}
+        </Link>
 
-          <Link
-            to="/programs"
-            className={`flex items-center py-3 px-4 mb-2 rounded-lg transition-all duration-200 ${
-              hoveredLink === "programs" 
-                ? "bg-blue-600 text-white shadow-md" 
-                : "text-blue-100 hover:bg-blue-800"
-            }`}
-            onMouseEnter={() => setHoveredLink("programs")}
-            onMouseLeave={() => setHoveredLink(null)}
-          >
-            <FaList className={`${isSidebarOpen ? "mr-3" : "mx-auto"} text-xl`} />
-            {isSidebarOpen && <span className="font-medium">Programs</span>}
-          </Link>
-
-          <Link
-            to="/transaksi"
-            className={`flex items-center py-3 px-4 mb-2 rounded-lg transition-all duration-200 ${
-              hoveredLink === "transactions" 
-                ? "bg-blue-600 text-white shadow-md" 
-                : "text-blue-100 hover:bg-blue-800"
-            }`}
-            onMouseEnter={() => setHoveredLink("transactions")}
-            onMouseLeave={() => setHoveredLink(null)}
-          >
-            <FaCreditCard className={`${isSidebarOpen ? "mr-3" : "mx-auto"} text-xl`} />
-            {isSidebarOpen && <span className="font-medium">Transactions</span>}
-          </Link>
-
-          <Link
-            to="/partners"
-            className={`flex items-center py-3 px-4 mb-2 rounded-lg transition-all duration-200 ${
-              hoveredLink === "partners" 
-                ? "bg-blue-600 text-white shadow-md" 
-                : "text-blue-100 hover:bg-blue-800"
-            }`}
-            onMouseEnter={() => setHoveredLink("partners")}
-            onMouseLeave={() => setHoveredLink(null)}
-          >
-            <FaHandshake className={`${isSidebarOpen ? "mr-3" : "mx-auto"} text-xl`} />
-            {isSidebarOpen && <span className="font-medium">Partners</span>}
-          </Link>
-
-          <Link
-            to="/settings"
-            className={`flex items-center py-3 px-4 mb-2 rounded-lg transition-all duration-200 ${
-              hoveredLink === "settings" 
-                ? "bg-blue-600 text-white shadow-md" 
-                : "text-blue-100 hover:bg-blue-800"
-            }`}
-            onMouseEnter={() => setHoveredLink("settings")}
-            onMouseLeave={() => setHoveredLink(null)}
-          >
-            <FaCog className={`${isSidebarOpen ? "mr-3" : "mx-auto"} text-xl`} />
-            {isSidebarOpen && <span className="font-medium">Settings</span>}
-          </Link>
-        </div>
+        <Link
+          to="/settings"
+          className={`flex items-center py-3 px-4 mb-4 rounded-lg transition-colors duration-300 hover:bg-blue-100 ${
+            hoveredLink === "settings" ? "bg-blue-100" : ""
+          }`}
+          onMouseEnter={() => setHoveredLink("settings")}
+          onMouseLeave={() => setHoveredLink(null)}
+        >
+          {isSidebarOpen ? (
+            <FaCog className="mr-3 text-blue-600" />
+          ) : (
+            <FaCog className="mr-3 text-blue-600" />
+          )}
+          {isSidebarOpen && <span>Settings</span>}
+        </Link>
 
         {/* Logout Button */}
-        <div className="mt-auto p-4">
+        <div className="mt-auto">
           <button
             onClick={handleLogoutClick}
-            className="flex items-center justify-center py-3 px-4 w-full rounded-lg bg-blue-800 text-white hover:bg-blue-400 transition-colors duration-300 shadow-md"
+            className="flex items-center py-3 px-4 w-full rounded-lg bg-blue-600 text-white hover:bg-blue-700"
           >
-            <FaSignOutAlt className={`${isSidebarOpen ? "mr-3" : ""} text-xl`} />
-            {isSidebarOpen && <span className="font-medium">Logout</span>}
+            <FaSignOutAlt className="mr-3 text-white" />
+            {isSidebarOpen && <span>Logout</span>}
           </button>
         </div>
       </div>
